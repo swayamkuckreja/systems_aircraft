@@ -6,7 +6,12 @@ def main():
     print('hello world')
     return ...
 
+def frank():
+    print('hello frank')
+    return ...
+
 # Main function call
 if __name__ == '__main__':
     main()
+    frank()
    
