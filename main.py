@@ -10,6 +10,10 @@ def frank():
     print('hello frank')
     return ...
 
+def rohit():
+    print('hello rohit')
+    return ...
+
 # Main function call
 if __name__ == '__main__':
     main()
