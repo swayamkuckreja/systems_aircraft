@@ -1,9 +1,12 @@
+from aircraft import Aircraft 
 import matplotlib.pyplot as plt
+
+ac = Aircraft()
 # Data
-MTOW = 23000
-OEW = 13600
-max_payload = 7400
-max_fuel = 5000
+MTOW = ac.mtow
+OEW = ac.oew
+max_payload = ac.payload
+max_fuel = ac.max_fuel
 
 # Configuration: Maximum Fuel
 fuel_max_config = max_fuel
