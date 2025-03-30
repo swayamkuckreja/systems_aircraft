@@ -29,8 +29,8 @@ x_cg_fuel = 14.5  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
 
 # Constants (MAC)
-x_mac = 12.0
-l_mac = 4
+x_mac = 11.5687
+l_mac = 2.318
 
 # Function to calculate seat CG
 def cg_seat(i):
@@ -215,7 +215,7 @@ plt.plot(line6x, line6y, label="Aisle Seats Back to Front")
 plt.plot(line7x, line7y, label="Fuel Loading")
 
 # Plot formatting
-plt.ylabel('mass [kg]')
+plt.ylabel('Mass g]')
 plt.xlabel('xcg [% MAC]')
 plt.title('CG Location to MAC vs Mass')
 plt.legend()
