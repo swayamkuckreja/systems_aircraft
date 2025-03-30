@@ -53,17 +53,21 @@ line7x, line7y = [], []
 
 '''Cargo loading'''
 # Front to back loaded
-for i in range(int(m_cargo1)+1):
-    line1x.append(x_cg)
-    line1y.append(m)
+line1x.append(x_cg)
+line1y.append(m)
+for i in range(int(m_cargo1)):
     x_cg = cg_formula(x_cg, x_cg_cargo1, 1, m)
     m += 1 # Increment mass 1kg
-
-for i in range(int(m_cargo2)+1):
     line1x.append(x_cg)
     line1y.append(m)
+
+line1x.append(x_cg)
+line1y.append(m)
+for i in range(int(m_cargo2)):
     x_cg = cg_formula(x_cg, x_cg_cargo2, 1, m)
     m += 1 # Increment mass 1kg
+    line1x.append(x_cg)
+    line1y.append(m)
 
 plt.plot(line1x,line1y)
 
@@ -72,17 +76,21 @@ plt.plot(line1x,line1y)
 x_cg = x_cg_oew
 m = ac.oew
 # Back to front loaded
-for i in range(int(m_cargo2)+1):
-    line2x.append(x_cg)
-    line2y.append(m)
+line2x.append(x_cg)
+line2y.append(m)
+for i in range(int(m_cargo2)):
     x_cg = cg_formula(x_cg, x_cg_cargo2, 1, m)
     m += 1 # Increment mass 1kg
-
-for i in range(int(m_cargo1)+1):
     line2x.append(x_cg)
     line2y.append(m)
+
+line2x.append(x_cg)
+line2y.append(m)
+for i in range(int(m_cargo1)):
     x_cg = cg_formula(x_cg, x_cg_cargo1, 1, m)
     m += 1 # Increment mass 1kg
+    line2x.append(x_cg)
+    line2y.append(m)
 
 plt.plot(line2x,line2y)
 
@@ -93,29 +101,67 @@ print(f'Cargo loaded cg = {x_cg_cargoloaded} m, and cargoloaded mass is {m_cargo
 
 '''Passenger loading'''
 
+'''Window seats'''
+line3x.append(x_cg)
+line3y.append(m)
 # Fill window seats first (front to back)
 for i in range(rows+1):
     for j in columns_1:
-        line3x.append(x_cg)
-        line3y.append(m)
         x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
         m += m_passenger
+        line3x.append(x_cg)
+        line3y.append(m)
 
 plt.plot(line3x,line3y)
 
 x_cg = x_cg_cargoloaded 
 m = m_cargoloaded
 
-# Fill aisle seats next (back to front)
+# Fill window seats next (back to front)
+line4x.append(x_cg)
+line4y.append(m)
 for i in range(rows, -1, -1):
     for j in columns_2:
-        line4x.append(x_cg)
-        line4y.append(m)
         x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
         m += m_passenger
+        line4x.append(x_cg)
+        line4y.append(m)
 
 plt.plot(line4x,line4y)
 
+x_cg_windowloaded = x_cg
+m_windowloaded = m
+
+print(f'cg after window loaded = {x_cg_windowloaded}, m after window loaded = {m_windowloaded}')
+
+'''Aisle seats'''
+
+line5x.append(x_cg)
+line5y.append(m)
+# Fill window seats first (front to back)
+for i in range(rows+1):
+    for j in columns_1:
+        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
+        m += m_passenger
+        line3x.append(x_cg)
+        line3y.append(m)
+
+plt.plot(line3x,line3y)
+
+x_cg = x_cg_cargoloaded 
+m = m_cargoloaded
+
+# Fill window seats next (back to front)
+line4x.append(x_cg)
+line4y.append(m)
+for i in range(rows, -1, -1):
+    for j in columns_2:
+        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
+        m += m_passenger
+        line4x.append(x_cg)
+        line4y.append(m)
+
+plt.plot(line4x,line4y)
 plt.show()
 
 # Display the final CG
