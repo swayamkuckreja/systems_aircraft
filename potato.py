@@ -17,8 +17,8 @@ print(f"Total passenger weight: {m_totpassengers} kg")
 
 # Constants (cargo)
 m_cargo = ac.payload - m_totpassengers  # Total cargo weight (kg)
-m_cargo1 = 0.6 * m_cargo  # Cargo 1 weight (kg)
-m_cargo2 = 0.4 * m_cargo  # Cargo 2 weight (kg)
+m_cargo1 = 0.55502 * m_cargo  # Cargo 1 weight (kg) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
+m_cargo2 = 0.44497 * m_cargo  # Cargo 2 weight (kg)
 print(f"Total cargo weight: {m_cargo} kg")
 x_cg_cargo1 = 4.33013  # CG location for cargo 1 (meters)
 x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
