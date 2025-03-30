@@ -21,7 +21,7 @@ m_cargo1 = 0.6 * m_cargo  # Cargo 1 weight (kg)
 m_cargo2 = 0.4 * m_cargo  # Cargo 2 weight (kg)
 print(f"Total cargo weight: {m_cargo} kg")
 x_cg_cargo1 = 12.4  # CG location for cargo 1 (meters)
-x_cg_cargo2 = 15.4  # CG location for cargo 2 (meters)
+x_cg_cargo2 = 28  # CG location for cargo 2 (meters)
 
 # Constant(fuel)
 m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
@@ -43,22 +43,63 @@ m = ac.oew
 cabin_layout = np.zeros((rows, columns))
 columns_1, columns_2 = [0, 3], [1, 2]  # Window and aisle seats
 
-cgandmass_history = [[[x_cg, m]],[],[],[],[],[],[]]  # Store CG values for plotting
+line1x, line1y = [], []
+line2x, line2y = [], []
+line3x, line3y = [], []
+line4x, line4y = [], []
+line5x, line5y = [], []
+line6x, line6y = [], []
+line7x, line7y = [], []
 
 '''Cargo loading'''
-
-for i in range(m_cargo1):
-    x_cg = cg_formula(x_cg, x_cg_cargo1, m_cargo1, m)
+# Front to back loaded
+for i in range(int(m_cargo1)+1):
+    line1x.append(x_cg)
+    line1y.append(m)
+    x_cg = cg_formula(x_cg, x_cg_cargo1, 1, m)
     m += 1 # Increment mass 1kg
-    cgandmass_history[0].append([x_cg, m])
+
+for i in range(int(m_cargo2)+1):
+    line1x.append(x_cg)
+    line1y.append(m)
+    x_cg = cg_formula(x_cg, x_cg_cargo2, 1, m)
+    m += 1 # Increment mass 1kg
+
+plt.plot(line1x,line1y)
+
+# Zero to oew again
+
+x_cg = x_cg_oew
+m = ac.oew
+# Back to front loaded
+for i in range(int(m_cargo2)+1):
+    line2x.append(x_cg)
+    line2y.append(m)
+    x_cg = cg_formula(x_cg, x_cg_cargo2, 1, m)
+    m += 1 # Increment mass 1kg
+
+for i in range(int(m_cargo1)+1):
+    line2x.append(x_cg)
+    line2y.append(m)
+    x_cg = cg_formula(x_cg, x_cg_cargo1, 1, m)
+    m += 1 # Increment mass 1kg
+
+plt.plot(line2x,line2y)
+
+x_cg_cargoloaded = x_cg
+m_cargoloaded = m
+
+print(f'Cargo loaded cg = {x_cg_cargoloaded} m, and cargoloaded mass is {m_cargoloaded} kg')
+
+'''Passenger loading'''
 
 # Fill window seats first (front to back)
 for i in range(rows):
     for j in columns_1:
         cabin_layout[i, j] = 1
-        new_cg = cg_formula(new_cg, cg_seat(i), passenger_weight, total_weight)
-        total_weight += passenger_weight
-        cg_history.append(new_cg)
+        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, total_weight)
+        total_weight += m_passenger
+        line3x.append(x_cg)
 
 # Fill aisle seats next (back to front)
 for i in range(rows-1, -1, -1):
@@ -68,6 +109,7 @@ for i in range(rows-1, -1, -1):
         total_weight += passenger_weight
         cg_history.append(new_cg)
 
+plt.show()
 
 
 # Display the final CG
