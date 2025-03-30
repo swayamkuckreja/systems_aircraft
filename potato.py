@@ -208,7 +208,7 @@ line7x = np.array([cg_to_mac(x) for x in line7x])
 line7y = np.array(line7y)
 
 # Plot all lines with respect to MAC
-plt.figure(figsize=(14, 10))  # Increase the figure size
+plt.figure(figsize=(10, 8))  # Increase the figure size
 plt.plot(line1x, line1y, label="Cargo Front to Back")
 plt.plot(line2x, line2y, label="Cargo Back to Front")
 plt.plot(line3x, line3y, label="Window Seats Front to Back")
@@ -225,6 +225,15 @@ min_cg = np.min(all_cg_values)
 # Apply margin
 max_cg_with_margin = max_cg + margin
 min_cg_with_margin = min_cg - margin
+
+# Adjust the x-axis to start at 0% MAC and end at 100% MAC
+plt.xlim(0, 100)
+
+# Adjust the y-axis to start at OEW weight and add more margin on top
+plt.ylim(ac.oew, max(line7y) * 1.1)  # Add 10% margin on top of the maximum mass
+
+# Increase the number of ticks on the y-axis
+plt.gca().yaxis.set_major_locator(plt.MaxNLocator(nbins=15))  # Set maximum number of bins to 15
 
 print(f"Maximum CG Location (with margin): {max_cg_with_margin:.2f} % MAC")
 print(f"Minimum CG Location (with margin): {min_cg_with_margin:.2f} % MAC")
