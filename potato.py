@@ -31,6 +31,7 @@ print(f"Total fuel weight: {m_fuel} kg")
 # Constants (MAC)
 x_mac = 11.5687
 l_mac = 2.318
+margin = 2 # %
 
 # Function to calculate seat CG
 def cg_seat(i):
@@ -213,6 +214,19 @@ plt.plot(line4x, line4y, label="Window Seats Back to Front")
 plt.plot(line5x, line5y, label="Aisle Seats Front to Back")
 plt.plot(line6x, line6y, label="Aisle Seats Back to Front")
 plt.plot(line7x, line7y, label="Fuel Loading")
+
+# Find the max and min CG with a margin of 2 percent
+all_cg_values = np.concatenate([line1x, line2x, line3x, line4x, line5x, line6x, line7x])
+max_cg = np.max(all_cg_values)
+min_cg = np.min(all_cg_values)
+
+# Apply margin
+max_cg_with_margin = max_cg + margin
+min_cg_with_margin = min_cg - margin
+
+print(f"Maximum CG Location (with margin): {max_cg_with_margin:.2f} % MAC")
+print(f"Minimum CG Location (with margin): {min_cg_with_margin:.2f} % MAC")
+
 
 # Plot formatting
 plt.ylabel('Mass [kg]]')
