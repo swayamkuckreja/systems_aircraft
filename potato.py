@@ -25,7 +25,7 @@ x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
 
 # Constant(fuel)
 m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
-x_fuel = 14.5  # CG location for fuel (meters)
+x_fuel = 13.157  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
 
 # Function to calculate seat CG
