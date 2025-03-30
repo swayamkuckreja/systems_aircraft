@@ -94,23 +94,29 @@ print(f'Cargo loaded cg = {x_cg_cargoloaded} m, and cargoloaded mass is {m_cargo
 '''Passenger loading'''
 
 # Fill window seats first (front to back)
-for i in range(rows):
+for i in range(rows+1):
     for j in columns_1:
-        cabin_layout[i, j] = 1
-        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, total_weight)
-        total_weight += m_passenger
         line3x.append(x_cg)
+        line3y.append(m)
+        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
+        m += m_passenger
+
+plt.plot(line3x,line3y)
+
+x_cg = x_cg_cargoloaded 
+m = m_cargoloaded
 
 # Fill aisle seats next (back to front)
-for i in range(rows-1, -1, -1):
+for i in range(rows, -1, -1):
     for j in columns_2:
-        cabin_layout[i, j] = 1
-        new_cg = cg_formula(new_cg, cg_seat(i), passenger_weight, total_weight)
-        total_weight += passenger_weight
-        cg_history.append(new_cg)
+        line4x.append(x_cg)
+        line4y.append(m)
+        x_cg = cg_formula(x_cg, cg_seat(i), m_passenger, m)
+        m += m_passenger
+
+plt.plot(line4x,line4y)
 
 plt.show()
-
 
 # Display the final CG
 print(f"Final CG Location: {x_cg:.2f} meters")
