@@ -9,7 +9,7 @@ ac = Aircraft()
 seat_pitch = 29  # in inches
 seat_pitch_m = seat_pitch * 0.0254  # convert to meters
 x_cg_oew = 14.5  # CG location for OEW (meters)
-x_seat = 12.5  # First passenger seat location (meters)
+x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = 18, 4  # Define cabin layout
 m_passenger = 75  # Average passenger weight (kg)
 m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
@@ -20,8 +20,8 @@ m_cargo = ac.payload - m_totpassengers  # Total cargo weight (kg)
 m_cargo1 = 0.6 * m_cargo  # Cargo 1 weight (kg)
 m_cargo2 = 0.4 * m_cargo  # Cargo 2 weight (kg)
 print(f"Total cargo weight: {m_cargo} kg")
-x_cg_cargo1 = 12.4  # CG location for cargo 1 (meters)
-x_cg_cargo2 = 28  # CG location for cargo 2 (meters)
+x_cg_cargo1 = 4.33013  # CG location for cargo 1 (meters)
+x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
 
 # Constant(fuel)
 m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
