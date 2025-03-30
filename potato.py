@@ -215,21 +215,12 @@ plt.plot(line6x, line6y, label="Aisle Seats Back to Front")
 plt.plot(line7x, line7y, label="Fuel Loading")
 
 # Plot formatting
-plt.ylabel('Mass g]')
-plt.xlabel('xcg [% MAC]')
+plt.ylabel('Mass [kg]]')
+plt.xlabel('CG Location [% MAC]')
 plt.title('CG Location to MAC vs Mass')
 plt.legend()
 plt.grid()
 
 plt.show()
-
-
-
-
-
-
-
-
-
 
 
