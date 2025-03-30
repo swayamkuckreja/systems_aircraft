@@ -17,6 +17,8 @@ print(f"Total passenger weight: {m_totpassengers} kg")
 
 # Constants (cargo)
 m_cargo = ac.payload - m_totpassengers  # Total cargo weight (kg)
+m_cargo1 = 0.6 * m_cargo  # Cargo 1 weight (kg)
+m_cargo2 = 0.4 * m_cargo  # Cargo 2 weight (kg)
 print(f"Total cargo weight: {m_cargo} kg")
 x_cg_cargo1 = 12.4  # CG location for cargo 1 (meters)
 x_cg_cargo2 = 15.4  # CG location for cargo 2 (meters)
@@ -42,6 +44,13 @@ cabin_layout = np.zeros((rows, columns))
 columns_1, columns_2 = [0, 3], [1, 2]  # Window and aisle seats
 
 cgandmass_history = [[[x_cg, m]],[],[],[],[],[],[]]  # Store CG values for plotting
+
+'''Cargo loading'''
+
+for i in range(m_cargo1):
+    x_cg = cg_formula(x_cg, x_cg_cargo1, m_cargo1, m)
+    m += 1 # Increment mass 1kg
+    cgandmass_history[0].append([x_cg, m])
 
 # Fill window seats first (front to back)
 for i in range(rows):
