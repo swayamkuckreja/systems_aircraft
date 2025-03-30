@@ -11,7 +11,7 @@ seat_pitch_m = seat_pitch * 0.0254  # convert to meters
 x_cg_oew = 14.5  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = 18, 4  # Define cabin layout
-m_passenger = 75  # Average passenger weight (kg)
+m_passenger = 84  # Average passenger weight (kg)
 m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
 print(f"Total passenger weight: {m_totpassengers} kg")
 
@@ -25,7 +25,7 @@ x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
 
 # Constant (fuel)
 m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
-x_cg_fuel = 14.5  # CG location for fuel (meters)
+x_cg_fuel = 13.15725  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
 
 # Constants (MAC)
@@ -167,8 +167,8 @@ for i in range(int(m_fuel)):
     line7x.append(x_cg)
     line7y.append(m)
 
-# Plot all lines with proper labels
-plt.figure(figsize=(10, 6))
+# Plot all lines with proper labels and increased figure size
+plt.figure(figsize=(14, 10))  # Increase the figure size
 plt.plot(line1x, line1y, label="Cargo Front to Back")
 plt.plot(line2x, line2y, label="Cargo Back to Front")
 plt.plot(line3x, line3y, label="Window Seats Front to Back")
@@ -182,7 +182,8 @@ plt.ylabel('Mass [kg]')
 plt.xlabel('CG Location [meters]')
 plt.title('CG Location vs Mass')
 plt.legend()
-plt.grid()
+plt.grid(which='both', linestyle='--', linewidth=0.5)  # Add finer grid lines
+plt.minorticks_on()  # Enable minor ticks for finer grid control
 plt.tight_layout()
 
 plt.show()
@@ -207,6 +208,7 @@ line7x = np.array([cg_to_mac(x) for x in line7x])
 line7y = np.array(line7y)
 
 # Plot all lines with respect to MAC
+plt.figure(figsize=(14, 10))  # Increase the figure size
 plt.plot(line1x, line1y, label="Cargo Front to Back")
 plt.plot(line2x, line2y, label="Cargo Back to Front")
 plt.plot(line3x, line3y, label="Window Seats Front to Back")
@@ -226,14 +228,14 @@ min_cg_with_margin = min_cg - margin
 
 print(f"Maximum CG Location (with margin): {max_cg_with_margin:.2f} % MAC")
 print(f"Minimum CG Location (with margin): {min_cg_with_margin:.2f} % MAC")
-
-
 # Plot formatting
-plt.ylabel('Mass [kg]]')
+plt.ylabel('Mass [kg]')
 plt.xlabel('CG Location [% MAC]')
 plt.title('CG Location to MAC vs Mass')
 plt.legend()
-plt.grid()
+plt.grid(which='both', linestyle='--', linewidth=0.5)  # Add finer grid lines
+plt.minorticks_on()  # Enable minor ticks for finer grid control
+plt.tight_layout()
 
 plt.show()
 
