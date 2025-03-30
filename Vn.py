@@ -78,9 +78,6 @@ def calculate_lines(constants):
 
     return [(x2, y2), (x3, y3), (x4, y4), (x5, y5), (x6, y6), (x7, y7), (x8, y8), (x9, y9), (x10, y10)]
 
-
-
-
 # Calculate lines for all sets of data
 lines1 = calculate_lines(constants1)
 lines2 = calculate_lines(constants2)
