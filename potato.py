@@ -8,7 +8,7 @@ ac = Aircraft()
 # Constants (passengers)
 seat_pitch = 29  # in inches
 seat_pitch_m = seat_pitch * 0.0254  # convert to meters
-x_cg_oew = 12.148  # CG location for OEW (meters)
+x_cg_oew = 12.00344317  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = 18, 4  # Define cabin layout
 m_passenger = 84  # Average passenger weight (kg)
@@ -29,8 +29,8 @@ x_cg_fuel = 13.15725  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
 
 # Constants (MAC)
-x_mac = 11.5687
-l_mac = 2.318
+x_mac = 13.604 - 2.362 # 11.5687
+l_mac = 2.303 # 2.318
 margin = 2 # %
 
 # Function to calculate seat CG
