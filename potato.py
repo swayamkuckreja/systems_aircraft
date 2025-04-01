@@ -29,7 +29,7 @@ x_cg_fuel = 13.15725  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
 
 # Constants (MAC)
-x_mac = 13.604 - 2.362 # 11.5687
+x_mac = 11.242 # 11.5687
 l_mac = 2.303 # 2.318
 margin = 2 # %
 
