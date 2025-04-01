@@ -15,12 +15,13 @@ C_L_alpha_h = 4.176756141        # [1/rad] from Calculation
 C_L_alpha_A_h = 6.403080015      # [1/rad] from Calculation/Simulation
 safety_margin_stability = 0.0    # [m] from Assumption
 
-m_stability = 1/(C_L_h/C_L_A_h*l_h/MAC*V_h_V**2)
-c_stability = (C_m_ac/C_L_A_h-x_ac)/m_stability
-m_controllability = 1/(C_L_alpha_h/C_L_alpha_A_h*(1-d_epsilon_d_alpha)*l_h/MAC*V_h_V**2)
-c_controllability = -(x_ac-safety_margin_stability)/m_controllability
+m_controllability = 1/(C_L_h/C_L_A_h*l_h/MAC*V_h_V**2)
+c_controllability = (C_m_ac/C_L_A_h-x_ac)/m_controllability
+m_stability = 1/(C_L_alpha_h/C_L_alpha_A_h*(1-d_epsilon_d_alpha)*l_h/MAC*V_h_V**2)
+c_stability = -(x_ac-safety_margin_stability)/m_stability
 
-
+print(f"Stability slope: {m_stability}, intercept: {c_stability}")
+print(f"Controllability slope: {m_controllability}, intercept: {c_controllability}")
 # Define x range for X_cg/MAC
 x_cg_range = np.linspace(0, 2.5, 50)  # Adjust range as needed
 
