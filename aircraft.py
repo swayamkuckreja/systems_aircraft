@@ -15,7 +15,7 @@ class Aircraft:
         # Weight
         self.mtow = 23000  # in kilograms (Maximum Takeoff Weight)
         self.oew = 13600  # in kilograms (Operating Empty Weight)
-        self.payload = 4400  # in kilograms
+        self.payload = 7400  # in kilograms
         self.max_fuel = 5000  # in kilograms
         self.mzfw = 21000  # in kilograms (Maximum Zero Fuel Weight)
         self.mlw = 22350  # in kilograms (Maximum Landing Weight)
