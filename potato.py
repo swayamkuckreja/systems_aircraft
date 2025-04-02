@@ -235,6 +235,11 @@ plt.ylim(ac.oew, max(line7y) * 1.1)  # Add 10% margin on top of the maximum mass
 # Increase the number of ticks on the y-axis
 plt.gca().yaxis.set_major_locator(plt.MaxNLocator(nbins=15))  # Set maximum number of bins to 15
 
+# Plot maximum and minimum CG locations with margin
+plt.axvline(max_cg_with_margin, color='red', linestyle='--', label=f"Max CG + Margin ({max_cg_with_margin:.2f} % MAC)")
+plt.axvline(min_cg_with_margin, color='blue', linestyle='--', label=f"Min CG - Margin ({min_cg_with_margin:.2f} % MAC)")
+
+# Print the maximum and minimum CG locations with margin
 print(f"Maximum CG Location (with margin): {max_cg_with_margin:.2f} % MAC")
 print(f"Minimum CG Location (with margin): {min_cg_with_margin:.2f} % MAC")
 # Plot formatting

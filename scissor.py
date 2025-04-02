@@ -19,7 +19,7 @@ safety_margin_stability = 0.0    # [m]
 
 m_controllability = 1/((C_L_h/C_L_A_h)*(l_h/MAC)*V_h_V)
 c_controllability = ((C_m_ac/C_L_A_h)-x_ac)*m_controllability
-m_stability_margin = 
+m_stability_margin = 0.05
 m_stability = 1/(C_L_alpha_h/C_L_alpha_A_h*(1-d_epsilon_d_alpha)*l_h/MAC*V_h_V)
 c_stability = -(x_ac-safety_margin_stability)*m_stability
 
