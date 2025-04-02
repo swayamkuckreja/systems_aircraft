@@ -135,4 +135,7 @@ print(f"Cmac: {Cmac}")
 alpha = 6
 CL_A_h = CL_0 + CL_alpha_A_h_slow * np.pi/180 * alpha
 
-
+print("\n--- CL_A_h ---")
+print(f"CL_A_h: {CL_A_h}")
+print(f"C_L_h: {CL_h}")
+print(f"X_ac_min: {x_ac_min}")

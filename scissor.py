@@ -7,19 +7,21 @@ C_L_A_h = 2.307981879             # [-]
 l_h = 13.30663981                 # [m]
 MAC = 2.03                        # [m]
 V_h_V = 0.95              # (Vh/V)^2
-C_m_ac = -1.062078975             # [-] (updated)
-x_ac = 0.036593223                # [ratio] (updated)
+C_m_ac = -0.888389154             # [-] (latest update)
+x_ac = 0.036593223                # [ratio]
 d_epsilon_d_alpha = 0.302437287  # [-]
 x_LEMAC = 11.56874647            # [m]
-C_L_alpha_h = 4.176756141        # [1/rad]
-C_L_alpha_A_h = 6.403080015      # [1/rad]
+C_L_alpha_h = 4.176756141        # [1/rad] (cruise)
+C_L_alpha_A_h = 6.403080015      # [1/rad] (cruise)
 safety_margin_stability = 0.0    # [m]
 
 
+
 m_controllability = 1/((C_L_h/C_L_A_h)*(l_h/MAC)*V_h_V)
-c_controllability = ((C_m_ac/C_L_A_h)-x_ac)/m_controllability
+c_controllability = ((C_m_ac/C_L_A_h)-x_ac)*m_controllability
+m_stability_margin = 
 m_stability = 1/(C_L_alpha_h/C_L_alpha_A_h*(1-d_epsilon_d_alpha)*l_h/MAC*V_h_V)
-c_stability = -(x_ac-safety_margin_stability)/m_stability
+c_stability = -(x_ac-safety_margin_stability)*m_stability
 
 print(m_controllability, c_controllability, m_stability, c_stability)
 # Define x range for X_cg/MAC up to 1
