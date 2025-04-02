@@ -11,9 +11,9 @@ seat_pitch_m = seat_pitch * 0.0254  # convert to meters
 x_cg_oew = 12.00344317  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = 18, 4  # Define cabin layout
-m_passenger = 84  # Average passenger weight (kg)
+m_passenger = ac.payload/ac.passengers  # Average passenger weight (kg)
 m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
-print(f"Total passenger weight: {m_totpassengers} kg")
+print(f"Total passenger weight: {m_totpassengers}, kg and total number of passengers: {rows*columns} pax, passenger weight is {m_passenger} kg.")
 
 # Constants (cargo)
 m_cargo = ac.payload - m_totpassengers  # Total cargo weight (kg)
