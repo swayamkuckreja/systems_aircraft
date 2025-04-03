@@ -1,4 +1,4 @@
-from Inputs import *
+from Inputs_from_wout import *
 import numpy as np
 import matplotlib.pyplot as plt
 
