@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from aircraft import Aircraft 
+from aircraft_new import Aircraft 
 
 # Initialize Aircraft object
 ac = Aircraft()
@@ -8,7 +8,7 @@ ac = Aircraft()
 # Constants (passengers)
 seat_pitch = 29  # in inches
 seat_pitch_m = seat_pitch * 0.0254  # convert to meters
-x_cg_oew = 12.00344317  # CG location for OEW (meters)
+x_cg_oew = 12.45124883  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = (18 - 4), 4  # Define cabin layout
 m_passenger = 84  # Average passenger weight (kg)
@@ -16,10 +16,10 @@ m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
 print(f"Total passenger weight: {m_totpassengers} kg, and total number of passengers: {rows*columns} pax.")
 
 # Constants (cargo)
-m_cargo = ac.payload - m_totpassengers  # Total cargo weight (kg)
-m_cargo1 = 0.55502 * m_cargo  # Cargo 1 weight (kg) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
-m_cargo2 = 0.44497 * m_cargo  # Cargo 2 weight (kg)
-print(f"Total cargo weight: {m_cargo} kg")
+m_cargo = ac.max_cargo  # Total cargo weight (kg)
+m_cargo1 = 0.55502 * m_cargo  # Cargo 1 weight (kg) (max 928) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
+m_cargo2 = 0.44497 * m_cargo  # Cargo 2 weight (kg) (max 744)
+print(f"Total cargo weight: {m_cargo} kg, front cargo: {m_cargo1} kg, and rear cargo: {m_cargo2} kg.")
 x_cg_cargo1 = 4.33013  # CG location for cargo 1 (meters)
 x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
 
@@ -27,6 +27,7 @@ x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
 m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
 x_cg_fuel = 13.15725  # CG location for fuel (meters)
 print(f"Total fuel weight: {m_fuel} kg")
+print(f'MTOW: {m_cargo + m_fuel + m_totpassengers + ac.oew}')
 
 # Constants (MAC)
 x_mac = 11.242 # 11.5687
@@ -225,6 +226,10 @@ min_cg = np.min(all_cg_values)
 # Apply margin
 max_cg_with_margin = max_cg + margin
 min_cg_with_margin = min_cg - margin
+
+# Plot maximum and minimum CG locations with margin
+plt.axvline(max_cg_with_margin, color='red', linestyle='--', label=f"Max CG + Margin ({max_cg_with_margin:.2f} % MAC)")
+plt.axvline(min_cg_with_margin, color='blue', linestyle='--', label=f"Min CG - Margin ({min_cg_with_margin:.2f} % MAC)")
 
 # Adjust the x-axis to start at 0% MAC and end at 100% MAC
 plt.xlim(0, 100)
