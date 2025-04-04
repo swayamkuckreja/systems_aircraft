@@ -11,22 +11,22 @@ seat_pitch_m = seat_pitch * 0.0254  # convert to meters
 x_cg_oew = 12.45124883  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = (18 - 4), 4  # Define cabin layout
-m_passenger = 84  # Average passenger weight (kg)
+m_passenger = 67.516  # Average passenger weight (kg)
 m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
 print(f"Total passenger weight: {m_totpassengers} kg, and total number of passengers: {rows*columns} pax.")
 
+# Constant (fuel)
+m_fuel = ac.max_fuel  # Total fuel weight (kg)
+x_cg_fuel = 13.15725  # CG location for fuel (meters)
+print(f"Total fuel weight: {m_fuel} kg")
+
 # Constants (cargo)
-m_cargo = ac.max_cargo  # Total cargo weight (kg)
+m_cargo = ac.mtow - m_fuel - m_totpassengers - ac.oew  # Total cargo weight (kg)
 m_cargo1 = 928/(928+744) * m_cargo  # Cargo 1 weight (kg) (max 928) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
 m_cargo2 = 744/(928+744) * m_cargo  # Cargo 2 weight (kg) (max 744)
 print(f"Total cargo weight: {m_cargo} kg, front cargo: {m_cargo1} kg, and rear cargo: {m_cargo2} kg.")
 x_cg_cargo1 = 4.33013  # CG location for cargo 1 (meters)
 x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
-
-# Constant (fuel)
-m_fuel = ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
-x_cg_fuel = 13.15725  # CG location for fuel (meters)
-print(f"Total fuel weight: {m_fuel} kg")
 print(f'MTOW: {m_cargo + m_fuel + m_totpassengers + ac.oew}')
 
 # Constants (MAC)
