@@ -8,7 +8,7 @@ ac = Aircraft()
 # Constants (passengers)
 seat_pitch = 29  # in inches
 seat_pitch_m = seat_pitch * 0.0254  # convert to meters
-x_cg_oew = 12.00344317  # CG location for OEW (meters)
+x_cg_oew = 11.96  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
 rows, columns = 18, 4  # Define cabin layout
 m_passenger = 84  # Average passenger weight (kg)
@@ -206,6 +206,10 @@ line6x = np.array([cg_to_mac(x) for x in line6x])
 line6y = np.array(line6y)
 line7x = np.array([cg_to_mac(x) for x in line7x])
 line7y = np.array(line7y)
+
+# Doing this so I can export it to draw_potato_together.py easier
+mac_potato_lines_x_old = [line1x, line2x, line3x, line4x, line5x, line6x, line7x]
+mac_potato_lines_y_old = [line1y, line2y, line3y, line4y, line5y, line6y, line7y]
 
 # Plot all lines with respect to MAC
 plt.figure(figsize=(10, 8))  # Increase the figure size
