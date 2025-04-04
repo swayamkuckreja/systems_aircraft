@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from aircraft import Aircraft 
+from aircraft_new import Aircraft 
 
 # Initialize Aircraft object
 ac = Aircraft()
@@ -8,25 +8,26 @@ ac = Aircraft()
 # Constants (passengers)
 seat_pitch = 29  # in inches
 seat_pitch_m = seat_pitch * 0.0254  # convert to meters
-x_cg_oew = 11.96  # CG location for OEW (meters)
+x_cg_oew = 12.45124883  # CG location for OEW (meters)
 x_seat = 5.83101  # First passenger seat location (meters)
-rows, columns = 18, 4  # Define cabin layout
-m_passenger = 61.11111  # Average passenger weight (kg)
+rows, columns = (18 - 4), 4  # Define cabin layout
+m_passenger = 67.516  # Average passenger weight (kg)
 m_totpassengers = rows * columns * m_passenger  # Total passenger weight (kg)
-print(f"Total passenger weight: {m_totpassengers}, kg and total number of passengers: {rows*columns} pax, passenger weight is {m_passenger} kg.")
+print(f"Total passenger weight: {m_totpassengers} kg, and total number of passengers: {rows*columns} pax.")
+
+# Constant (fuel)
+m_fuel = ac.max_fuel  # Total fuel weight (kg)
+x_cg_fuel = 13.15725  # CG location for fuel (meters)
+print(f"Total fuel weight: {m_fuel} kg")
 
 # Constants (cargo)
-m_cargo = 0 # ac.payload - m_totpassengers  # Total cargo weight (kg)
-m_cargo1 = 0.55502 * m_cargo  # Cargo 1 weight (kg) (max 928) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
-m_cargo2 = 0.44497 * m_cargo  # Cargo 2 weight (kg) (max 744)
+m_cargo = ac.mtow - m_fuel - m_totpassengers - ac.oew  # Total cargo weight (kg)
+m_cargo1 = 928/(928+744) * m_cargo  # Cargo 1 weight (kg) (max 928) ratio souce: https://www.jetstreamavcap.com/wp-content/uploads/2024/04/Jetstream-Aviation-Capital-ATR-72-600-Data-Sheet-2024-07-28.pdf
+m_cargo2 = 744/(928+744) * m_cargo  # Cargo 2 weight (kg) (max 744)
 print(f"Total cargo weight: {m_cargo} kg, front cargo: {m_cargo1} kg, and rear cargo: {m_cargo2} kg.")
 x_cg_cargo1 = 4.33013  # CG location for cargo 1 (meters)
 x_cg_cargo2 = 20.89227 # CG location for cargo 2 (meters)
-
-# Constant (fuel)
-m_fuel = 5000 # ac.mtow - ac.oew - m_cargo - m_totpassengers  # Total fuel weight (kg)
-x_cg_fuel = 13.15725  # CG location for fuel (meters)
-print(f"Total fuel weight: {m_fuel} kg")
+print(f'MTOW: {m_cargo + m_fuel + m_totpassengers + ac.oew}')
 
 # Constants (MAC)
 x_mac = 11.242 # 11.5687
@@ -207,10 +208,6 @@ line6y = np.array(line6y)
 line7x = np.array([cg_to_mac(x) for x in line7x])
 line7y = np.array(line7y)
 
-# Doing this so I can export it to draw_potato_together.py easier
-mac_potato_lines_x_old = [line1x, line2x, line3x, line4x, line5x, line6x, line7x]
-mac_potato_lines_y_old = [line1y, line2y, line3y, line4y, line5y, line6y, line7y]
-
 # Plot all lines with respect to MAC
 plt.figure(figsize=(10, 8))  # Increase the figure size
 plt.plot(line1x, line1y, label="Cargo Front to Back")
@@ -230,6 +227,10 @@ min_cg = np.min(all_cg_values)
 max_cg_with_margin = max_cg + margin
 min_cg_with_margin = min_cg - margin
 
+# Plot maximum and minimum CG locations with margin
+plt.axvline(max_cg_with_margin, color='red', linestyle='--', label=f"Max CG + Margin ({max_cg_with_margin:.2f} % MAC)")
+plt.axvline(min_cg_with_margin, color='blue', linestyle='--', label=f"Min CG - Margin ({min_cg_with_margin:.2f} % MAC)")
+
 # Adjust the x-axis to start at 0% MAC and end at 100% MAC
 plt.xlim(0, 100)
 
@@ -239,11 +240,6 @@ plt.ylim(ac.oew, max(line7y) * 1.1)  # Add 10% margin on top of the maximum mass
 # Increase the number of ticks on the y-axis
 plt.gca().yaxis.set_major_locator(plt.MaxNLocator(nbins=15))  # Set maximum number of bins to 15
 
-# Plot maximum and minimum CG locations with margin
-plt.axvline(max_cg_with_margin, color='red', linestyle='--', label=f"Max CG + Margin ({max_cg_with_margin:.2f} % MAC)")
-plt.axvline(min_cg_with_margin, color='blue', linestyle='--', label=f"Min CG - Margin ({min_cg_with_margin:.2f} % MAC)")
-
-# Print the maximum and minimum CG locations with margin
 print(f"Maximum CG Location (with margin): {max_cg_with_margin:.2f} % MAC")
 print(f"Minimum CG Location (with margin): {min_cg_with_margin:.2f} % MAC")
 # Plot formatting
